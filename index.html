@@ -1,1105 +1,422 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hadjer Bordjiba — AI & ML Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
   :root {
-    --bg: #0a0b1c;
-    --bg2: #10112a;
-    --bg3: #161838;
-    --border: rgba(139,124,255,0.12);
-    --border-light: rgba(139,124,255,0.24);
-    --text: #ece9fb;
-    --text-muted: #8f8cb3;
-    --text-dim: #565476;
-    --accent: #9b7bff;
-    --accent2: #4f9dff;
-    --accent-glow: rgba(155,123,255,0.18);
-    --white: #ffffff;
-    --serif: 'Fraunces', Georgia, serif;
-    --sans: 'Space Grotesk', system-ui, sans-serif;
-    --nav-bg: rgba(10,11,28,0.85);
-    --cursor-glow: rgba(155,123,255,0.14);
-    --grad: linear-gradient(135deg, #9b7bff 0%, #4f9dff 100%);
+    --primary-blue: #1d4ed8;
+    --dark-blue: #1e3a8a;
+    --light-bg: #e2e8f0;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-white: #ffffff;
+    --text-white-dim: #cbd5e1;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
   }
 
-  [data-theme="light"] {
-    --bg: #f7f6fd;
-    --bg2: #eeecfa;
-    --bg3: #e4e1f7;
-    --border: rgba(90,60,200,0.12);
-    --border-light: rgba(90,60,200,0.22);
-    --text: #14132c;
-    --text-muted: #423f66;
-    --text-dim: #6b6890;
-    --accent: #6d3fff;
-    --accent2: #1f6fd6;
-    --accent-glow: rgba(109,63,255,0.12);
-    --white: #0f0e24;
-    --nav-bg: rgba(247,246,253,0.88);
-    --cursor-glow: rgba(109,63,255,0.1);
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+  }
 
   body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    font-size: 16px;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(ellipse 60% 40% at 15% 0%, rgba(155,123,255,0.10), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 100% 20%, rgba(79,157,255,0.08), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 20px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--nav-bg);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--white);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
-  .nav-logo span {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-
-  .theme-toggle {
-    background: var(--bg2);
-    border: 1px solid var(--border-light);
-    color: var(--text-muted);
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-  .theme-toggle:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
-
-  .cursor-glow {
-    position: fixed;
-    width: 340px; height: 340px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--cursor-glow) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: left 0.08s ease, top 0.08s ease;
-    opacity: 0;
-  }
-
-  section {
-    padding: 100px 0;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding-left: 48px;
-    padding-right: 48px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .section-label::after {
-    content: ''; display: block; height: 1px; width: 40px;
-    background: var(--grad); opacity: 0.6;
-  }
-
-  h2.section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    font-weight: 500;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 56px;
-  }
-
-  /* ─── HERO ─── */
-  #hero {
+    font-family: var(--font-body);
+    background-color: var(--light-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 40px 20px;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 120px;
-    position: relative;
-    max-width: none;
-    padding-left: 0; padding-right: 0;
+  }
+
+  /* Layout Container */
+  .portfolio-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Card Base Styles */
+  .card {
+    background: var(--card-bg);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
     overflow: hidden;
   }
 
-  .hero-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 48px;
-    position: relative;
-    z-index: 2;
+  .card-blue {
+    background: var(--primary-blue);
+    color: var(--text-white);
+  }
+
+  .card-body {
+    padding: 32px 28px;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .section-title-white {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-white);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .section-title-dark {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-blue);
+  }
+
+  /* Hero Center Column */
+  .hero-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
+  }
+
+  .hero-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: #cbd5e1;
+    overflow: hidden;
+  }
+
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-info-block {
+    background: var(--primary-blue);
+    color: var(--text-white);
+    padding: 36px 24px;
     text-align: center;
   }
 
-  .hero-eyebrow {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 32px;
-    display: flex; align-items: center; justify-content: center; gap: 12px;
+  .hero-name {
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 8px;
   }
-  .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 28px; height: 1px; background: var(--grad); }
 
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(2.4rem, 5.4vw, 3.6rem);
-    font-weight: 500;
-    line-height: 1.04;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  h1 .italic {
+  .hero-title {
+    font-size: 1.1rem;
     font-style: italic;
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-weight: 500;
+    color: var(--text-white-dim);
+    margin-bottom: 24px;
+    text-transform: none;
   }
 
-  .hero-role {
-    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-    color: var(--accent);
-    font-weight: 500;
-    letter-spacing: 0.03em;
+  .hero-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+  }
+
+  .hero-contacts a {
+    color: var(--text-white);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .hero-contacts a:hover {
+    opacity: 0.8;
+  }
+
+  /* List Items inside Blue Cards */
+  .blue-list-item {
     margin-bottom: 20px;
   }
 
-  .hero-sub { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 4px; }
-  .hero-divider { width: 40px; height: 1px; background: var(--border-light); flex-shrink: 0; }
-  .hero-location {
-    font-size: 0.78rem; color: var(--text-dim);
-    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+  .blue-list-item:last-child {
+    margin-bottom: 0;
   }
 
-  .hero-tagline {
-    font-size: clamp(0.95rem, 1.8vw, 1.05rem);
-    color: var(--text-muted);
-    font-weight: 400;
-    max-width: 480px;
-    margin-top: 32px; margin-bottom: 40px;
-    line-height: 1.65;
-  }
-
-  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 13px 28px;
-    font-family: var(--sans);
-    font-size: 0.82rem; font-weight: 500;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .btn-primary {
-    background: var(--grad);
-    color: #0a0b1c;
-    border: 1px solid transparent;
-  }
-  .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent; color: var(--text-muted);
-    border: 1px solid var(--border-light);
-  }
-  .btn-ghost:hover { color: var(--white); border-color: var(--accent); }
-
-  /* ─── HERO PHOTO ─── */
-  .hero-photo-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 220px;
-    aspect-ratio: 1 / 1;
-    margin: 0 auto 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-photo-ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent));
-    animation: spin 14s linear infinite;
-    padding: 3px;
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .hero-photo-glow {
-    position: absolute;
-    inset: -30px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-    filter: blur(10px);
-    z-index: -1;
-  }
-
-  .hero-photo {
-    position: relative;
-    width: calc(100% - 24px);
-    height: calc(100% - 24px);
-    border-radius: 50%;
-    background: var(--bg2);
-    border: 1px solid var(--border-light);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-photo img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .hero-photo-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-dim);
-    text-align: center;
-    padding: 20px;
-  }
-  .hero-photo-placeholder svg { color: var(--accent); opacity: 0.7; }
-  .hero-photo-placeholder span {
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
-    max-width: 160px;
+  .blue-list-item p {
+    font-size: 0.88rem;
+    color: var(--text-white-dim);
     line-height: 1.5;
   }
 
-  .hero-node {
-    position: absolute;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent2);
-    box-shadow: 0 0 12px 2px var(--accent-glow);
-    animation: pulse-node 3s ease-in-out infinite;
+  .blue-list-item strong {
+    color: var(--text-white);
+    display: block;
+    font-size: 0.95rem;
   }
-  .hero-node.n1 { top: 6%; right: 8%; animation-delay: 0s; }
-  .hero-node.n2 { bottom: 12%; left: -4%; background: var(--accent); animation-delay: 1s; }
-  .hero-node.n3 { top: 55%; right: -6%; animation-delay: 2s; }
 
-  @keyframes pulse-node { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 40px; left: 48px;
-    display: flex; align-items: center; gap: 12px;
-    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--text-dim);
-    z-index: 2;
+  .skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
   }
-  .scroll-hint svg { animation: bounce 2s ease-in-out infinite; }
-  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
-  /* ─── ABOUT ─── */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  .about-text p { font-size: 1.05rem; color: var(--text); margin-bottom: 20px; font-weight: 300; line-height: 1.8; }
-  .about-text p strong { color: var(--white); font-weight: 500; }
-
-  .about-facts { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-  .fact-row { display: flex; align-items: flex-start; gap: 16px; padding: 20px 24px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
-  .fact-row:last-child { border-bottom: none; }
-  .fact-row:hover { background: var(--bg3); }
-  .fact-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
-  .fact-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 2px; font-weight: 600; }
-  .fact-value { font-size: 0.92rem; color: var(--text); font-weight: 400; }
-
-  /* ─── RESEARCH INTERESTS ─── */
-  .interests-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-  .interest-card { background: var(--bg2); padding: 36px 28px; transition: background 0.2s; position: relative; overflow: hidden; }
-  .interest-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .interest-card:hover::before { transform: scaleX(1); }
-  .interest-card:hover { background: var(--bg3); }
-  .interest-icon { font-size: 1.6rem; margin-bottom: 16px; display: block; color: var(--accent2); }
-  .interest-title { font-family: var(--serif); font-size: 1.15rem; color: var(--white); margin-bottom: 10px; font-weight: 500; }
-  .interest-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
-
-  /* ─── PROJECTS ─── */
-  .projects-list { display: flex; flex-direction: column; gap: 2px; }
-  .project-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; transition: border-color 0.2s; }
-  .project-item:hover { border-color: var(--border-light); }
-  .project-header { padding: 28px 32px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; user-select: none; }
-  .project-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-  .project-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: var(--accent-glow); padding: 3px 10px; border-radius: 2px; }
-  .project-tag.blue { color: var(--accent2); background: rgba(79,157,255,0.12); }
-  .project-tag.green { color: #9b7bff; background: rgba(155,123,255,0.10); }
-  .project-name { font-family: var(--serif); font-size: 1.35rem; color: var(--white); font-weight: 500; margin-bottom: 4px; }
-  .project-short { font-size: 0.88rem; color: var(--text-muted); font-weight: 300; }
-  .project-toggle { color: var(--text-dim); flex-shrink: 0; transition: transform 0.3s; margin-top: 4px; }
-  .project-item.open .project-toggle { transform: rotate(45deg); color: var(--accent); }
-  .project-body { display: none; padding: 0 32px 32px; border-top: 1px solid var(--border); }
-  .project-item.open .project-body { display: block; }
-  .project-body-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 28px; }
-  .project-section-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-  .project-body p { font-size: 0.9rem; color: var(--text); line-height: 1.75; font-weight: 300; }
-  .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-  .tech-pill { font-size: 0.72rem; font-weight: 500; color: var(--text-muted); border: 1px solid var(--border-light); padding: 4px 12px; border-radius: 2px; letter-spacing: 0.04em; }
-
-  /* ─── EXPERIENCE ─── */
-  .experience-list { display: flex; flex-direction: column; }
-  .exp-item { display: grid; grid-template-columns: 180px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--border); }
-  .exp-item:first-child { padding-top: 0; }
-  .exp-item:last-child { border-bottom: none; }
-  .exp-meta { padding-top: 4px; }
-  .exp-period { font-size: 0.78rem; color: var(--text-dim); font-weight: 500; letter-spacing: 0.06em; margin-bottom: 6px; }
-  .exp-org { font-size: 0.88rem; color: var(--accent); font-weight: 500; }
-  .exp-title { font-family: var(--serif); font-size: 1.3rem; color: var(--white); font-weight: 500; margin-bottom: 16px; line-height: 1.3; }
-  .exp-body { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.75; }
-  .exp-body strong { color: var(--text); font-weight: 500; }
-  .exp-highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-
-  /* ─── SKILLS ─── */
-  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-  .skill-group { background: var(--bg2); padding: 32px 28px; transition: background 0.2s; }
-  .skill-group:hover { background: var(--bg3); }
-  .skill-group-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .skill-list li { font-size: 0.88rem; color: var(--text); display: flex; align-items: center; gap: 10px; font-weight: 300; }
-  .skill-list li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--grad); flex-shrink: 0; opacity: 0.8; }
-
-  /* ─── ACHIEVEMENTS ─── */
-  .achievements-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .achievement-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 36px 32px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
-  .achievement-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
-  .achievement-rank { font-family: var(--serif); font-size: 2rem; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; margin-bottom: 20px; font-weight: 500; }
-  .achievement-rank.silver { background: linear-gradient(135deg, #4f9dff, #9b7bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .achievement-title { font-family: var(--serif); font-size: 1.25rem; color: var(--white); margin-bottom: 8px; font-weight: 500; }
-  .achievement-org { font-size: 0.78rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 16px; }
-  .achievement-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; font-weight: 300; }
-  .achievement-status { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 0.72rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(79,157,255,0.1); padding: 4px 12px; border-radius: 2px; }
-  .achievement-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s ease infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-  /* ─── CONTACT ─── */
-  #contact { border-top: 1px solid var(--border); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  .contact-text h3 { font-family: var(--serif); font-size: 2rem; color: var(--white); font-weight: 500; margin-bottom: 16px; line-height: 1.2; }
-  .contact-text h3 em {
-    font-style: italic;
-    background: var(--grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .pill {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-white);
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight: 600;
   }
-  .contact-text p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; font-weight: 300; margin-bottom: 32px; }
-  .contact-links { display: flex; flex-direction: column; gap: 2px; }
-  .contact-link { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; text-decoration: none; transition: all 0.2s; }
-  .contact-link:hover { border-color: var(--accent); background: var(--accent-glow); }
-  .contact-link:hover .cl-text { color: var(--accent); }
-  .cl-icon { color: var(--accent); flex-shrink: 0; }
-  .cl-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); font-weight: 600; margin-bottom: 2px; }
-  .cl-text { font-size: 0.88rem; color: var(--text-muted); transition: color 0.2s; }
 
-  footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; font-size: 0.78rem; color: var(--text-dim); position: relative; z-index: 1; }
-
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 900px) {
-    nav { padding: 18px 24px; }
-    .nav-links { display: none; }
-    section { padding: 70px 24px; }
-    .hero-inner { padding: 0 24px; }
-    .hero-photo-wrap { max-width: 170px; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-    .interests-grid { grid-template-columns: 1fr 1fr; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .achievements-grid { grid-template-columns: 1fr; }
-    .exp-item { grid-template-columns: 1fr; gap: 8px; }
-    .project-body-inner { grid-template-columns: 1fr; gap: 24px; }
-    .scroll-hint { display: none; }
-    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+  /* Projects Section */
+  .project-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #f8fafc;
   }
-  @media (max-width: 640px) {
-    .interests-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
+
+  .project-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .project-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 6px;
+    text-transform: none;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .project-tag {
+    background: #e0e7ff;
+    color: var(--primary-blue);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .social-link {
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .social-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Dynamic Stack Spacing for Columns */
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero-column {
+      grid-column: span 2;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 680px) {
+    body {
+      padding: 16px 10px;
+    }
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .hero-column {
+      grid-column: span 1;
+    }
+    .hero-name {
+      font-size: 1.8rem;
+    }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#hero" class="nav-logo">Hadjer <span>Bordjiba</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
-    <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-  </button>
-</nav>
+<div class="portfolio-grid">
+  
+  <!-- LEFT COLUMN -->
+  <div class="column">
+    
+    <!-- Education & Experience (Blue Panel) -->
+    <div class="card card-blue">
+      <div class="card-body">
+        <h2 class="section-title-white">Education</h2>
+        <div class="blue-list-item">
+          <strong>ENSIA — Engineering Cycle</strong>
+          <p>National Higher School of Artificial Intelligence (Master's Equivalent)</p>
+        </div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">AI & Machine Learning Engineer</div>
+        <h2 class="section-title-white" style="margin-top: 32px;">Experience</h2>
+        <div class="blue-list-item">
+          <strong>AI Research Intern</strong>
+          <p>Targeting PFE Research Placements in ML, CV, and NLP Systems.</p>
+        </div>
+        <div class="blue-list-item">
+          <strong>Machine Learning Engineer</strong>
+          <p>Developed sequential models, RL agents, and signal classifiers.</p>
+        </div>
 
-    <!-- PHOTO -->
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-glow"></div>
-      <div class="hero-photo-ring"></div>
-      <div class="hero-node n1"></div>
-      <div class="hero-node n2"></div>
-      <div class="hero-node n3"></div>
-      <div class="hero-photo">
+        <h2 class="section-title-white" style="margin-top: 32px;">Skills</h2>
+        <div class="blue-list-item">
+          <p>Proficient in end-to-end model training, optimization, and problem formulation.</p>
+          <div class="skill-pills">
+            <span class="pill">Python</span>
+            <span class="pill">PyTorch</span>
+            <span class="pill">Computer Vision</span>
+            <span class="pill">NLP</span>
+            <span class="pill">RL</span>
+            <span class="pill">Signal Processing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact & Social Block -->
+    <div class="card card-blue">
+      <div class="card-body">
+        <h2 class="section-title-white">Contact Me</h2>
+        <div class="hero-contacts" style="text-align: left; margin-bottom: 24px;">
+          <span>Annaba, Algeria</span>
+          <a href="mailto:hadjer.bordjiba@ensia.edu.dz">hadjer.bordjiba@ensia.edu.dz</a>
+        </div>
+
+        <h2 class="section-title-white">Follow Me</h2>
+        <div class="social-links">
+          <a class="social-link" href="#" target="_blank">LinkedIn / Hadjer-Bordjiba</a>
+          <a class="social-link" href="#" target="_blank">GitHub / Hadjer-Bordjiba</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CENTER COLUMN (HERO PORTRAIT CARD) -->
+  <div class="column hero-column">
+    <div class="card hero-card">
+      <div class="hero-img-wrap">
         <img src="images/MyImage.png" alt="Hadjer Bordjiba">
       </div>
-    </div>
-
-    <h1>Hadjer <span class="italic">Bordjiba</span></h1>
-    <div class="hero-role">AI & ML Engineer</div>
-    <div class="hero-sub">
-      <div class="hero-divider"></div>
-      <span class="hero-location">ENSIA · Annaba, Algeria</span>
-      <div class="hero-divider"></div>
-    </div>
-    <p class="hero-tagline">
-      Engineering student at ENSIA, building research-driven AI systems across machine learning, computer vision, and NLP. Seeking a PFE research internship in a lab where rigorous thinking meets real-world impact.
-    </p>
-    <div class="hero-cta">
-      <a href="mailto:hadjer.bordjiba@ensia.edu.dz" class="btn btn-primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Get in touch
-      </a>
-      <a href="#projects" class="btn btn-ghost">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        View Projects
-      </a>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-    Scroll to explore
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">01 — Profile</div>
-  <h2 class="section-title">Who I am</h2>
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <p>
-        I'm an engineering student at the <strong>National Higher School of Artificial Intelligence (ENSIA)</strong>, Algeria's dedicated AI institution. My work sits at the intersection of machine learning research and applied engineering — I don't just implement models, I study why they work.
-      </p>
-      <p>
-        Over the past few years I've worked across a wide range of AI subfields: from training deep neural networks on biomedical signals to designing reinforcement learning agents for dynamic pricing, and building NLP systems for under-resourced dialects. Each project has pushed me to think more carefully about problem formulation, not just solution design.
-      </p>
-      <p>
-        I'm now looking for a <strong>PFE research internship</strong> — a final-year research placement in an environment where ideas are challenged, methods are rigorous, and the work leaves a measurable trace.
-      </p>
-    </div>
-    <div class="about-facts">
-      <div class="fact-row">
-        <div class="fact-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-        </div>
-        <div>
-          <div class="fact-label">Education</div>
-          <div class="fact-value">ENSIA — Engineering Cycle (Master's equiv.)</div>
-        </div>
-      </div>
-      <div class="fact-row">
-        <div class="fact-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div>
-          <div class="fact-label">Location</div>
-          <div class="fact-value">Annaba, Algeria</div>
-        </div>
-      </div>
-      <div class="fact-row">
-        <div class="fact-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-3.14ZM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24A2.5 2.5 0 0 0 18.5 2.86Z"/></svg>
-        </div>
-        <div>
-          <div class="fact-label">Focus</div>
-          <div class="fact-value">ML Research, Computer Vision, NLP, Optimization</div>
-        </div>
-      </div>
-      <div class="fact-row">
-        <div class="fact-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <div>
-          <div class="fact-label">Status</div>
-          <div class="fact-value">Seeking PFE Research Internship</div>
+      <div class="hero-info-block">
+        <h1 class="hero-name">HADJER BORDJIBA</h1>
+        <div class="hero-title">AI & ML Engineer</div>
+        <div class="hero-contacts">
+          <span>ENSIA · Annaba, Algeria</span>
+          <a href="mailto:hadjer.bordjiba@ensia.edu.dz">hadjer.bordjiba@ensia.edu.dz</a>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- RESEARCH INTERESTS -->
-<section id="interests">
-  <div class="section-label">02 — Research</div>
-  <h2 class="section-title">Areas of interest</h2>
-  <div class="interests-grid reveal">
-    <div class="interest-card">
-      <svg class="interest-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 9 2 2 4-4M9 15h6"/></svg>
-      <div class="interest-title">Computer Vision</div>
-      <p class="interest-desc">Object detection, image classification, and signal-based learning with neural architectures. Practical experience with medical and real-world visual data.</p>
-    </div>
-    <div class="interest-card">
-      <svg class="interest-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <div class="interest-title">NLP</div>
-      <p class="interest-desc">Conversational systems, low-resource language processing, and behavioral modeling. Interest in multilingual models and dialect-aware NLP.</p>
-    </div>
-    <div class="interest-card">
-      <svg class="interest-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-      <div class="interest-title">Sequential Learning</div>
-      <p class="interest-desc">Time series forecasting, EEG signal analysis, and temporal pattern extraction. Statistical and deep learning approaches to dynamic data.</p>
-    </div>
-    <div class="interest-card">
-      <svg class="interest-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <div class="interest-title">Intelligent Optimization</div>
-      <p class="interest-desc">Metaheuristics, reinforcement learning, and combinatorial optimization. Interested in how optimization theory meets machine learning practice.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">03 — Work</div>
-  <h2 class="section-title">Selected projects</h2>
-  <div class="projects-list">
-
-    <div class="project-item reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div>
-          <div class="project-meta">
-            <span class="project-tag">Deep Learning</span>
-            <span class="project-tag blue">Neuroscience</span>
-          </div>
-          <div class="project-name">EEG Signal Classification</div>
-          <div class="project-short">Detecting neurological patterns in biomedical time-series data</div>
-        </div>
-        <svg class="project-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+  <!-- RIGHT COLUMN -->
+  <div class="column">
+    
+    <!-- About Me Panel -->
+    <div class="card card-blue">
+      <div class="card-body">
+        <h2 class="section-title-white">About Me</h2>
+        <p style="font-size: 0.92rem; color: var(--text-white-dim); line-height: 1.7;">
+          Engineering student at the National Higher School of Artificial Intelligence (ENSIA). I build research-driven AI systems across machine learning, computer vision, and NLP. Currently seeking a PFE research internship where rigorous thinking meets real-world impact.
+        </p>
       </div>
-      <div class="project-body">
-        <div class="project-body-inner">
-          <div>
-            <div class="project-section-title">The Problem</div>
-            <p>EEG signals are notoriously noisy, high-dimensional, and subject-variable. Identifying meaningful neurological patterns manually is slow, expert-dependent, and doesn't scale. The goal was to automate this classification using deep learning.</p>
-          </div>
-          <div>
-            <div class="project-section-title">Approach & Outcome</div>
-            <p>Designed a deep learning pipeline to process multi-channel EEG recordings as temporal sequences. Focused on architecture choices that respect the non-stationarity of neural signals. The system learned to distinguish between distinct neurological states with meaningful accuracy — demonstrating that end-to-end learning can extract diagnostic signal without hand-engineered features.</p>
-            <div class="tech-stack">
-              <span class="tech-pill">Python</span>
-              <span class="tech-pill">PyTorch</span>
-              <span class="tech-pill">Signal Processing</span>
-              <span class="tech-pill">CNN / RNN</span>
-            </div>
+    </div>
+
+    <!-- Selected Projects Panel -->
+    <div class="card">
+      <div class="card-body">
+        <h2 class="section-title-dark">Projects</h2>
+
+        <div class="project-card">
+          <h3 class="project-title">EEG Signal Classification</h3>
+          <p class="project-desc">Detecting neurological patterns in biomedical time-series data using deep neural networks.</p>
+          <div class="project-tags">
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag">Signal Processing</span>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="project-item reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div>
-          <div class="project-meta">
+        <div class="project-card">
+          <h3 class="project-title">Dynamic Pricing RL Agent</h3>
+          <p class="project-desc">Learning optimal dynamic pricing strategies under market uncertainty via policy gradient methods.</p>
+          <div class="project-tags">
             <span class="project-tag">Reinforcement Learning</span>
-          </div>
-          <div class="project-name">Dynamic Pricing RL Agent</div>
-          <div class="project-short">Learning optimal pricing strategies from market interactions</div>
-        </div>
-        <svg class="project-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-      <div class="project-body">
-        <div class="project-body-inner">
-          <div>
-            <div class="project-section-title">The Problem</div>
-            <p>Pricing in dynamic markets is a sequential decision problem. Fixed rules fail to adapt; supervised models can't handle delayed feedback. Reinforcement learning is a natural fit — the agent must learn when to raise, hold, or lower prices without ever seeing the optimal policy.</p>
-          </div>
-          <div>
-            <div class="project-section-title">Approach & Outcome</div>
-            <p>Formulated pricing as an MDP with a custom reward function balancing revenue and demand responsiveness. Trained the agent using a policy gradient method in a simulated environment calibrated to realistic elasticity curves. The agent converged to pricing policies that outperform static baselines by exploiting temporal demand patterns.</p>
-            <div class="tech-stack">
-              <span class="tech-pill">Python</span>
-              <span class="tech-pill">RL (Policy Gradient)</span>
-              <span class="tech-pill">Custom Env</span>
-              <span class="tech-pill">Simulation</span>
-            </div>
+            <span class="project-tag">Python</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="project-item reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div>
-          <div class="project-meta">
-            <span class="project-tag">Optimization</span>
-            <span class="project-tag green">CSP</span>
-          </div>
-          <div class="project-name">AI Timetabling System</div>
-          <div class="project-short">Constraint satisfaction meets evolutionary algorithms for academic scheduling</div>
-        </div>
-        <svg class="project-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-      <div class="project-body">
-        <div class="project-body-inner">
-          <div>
-            <div class="project-section-title">The Problem</div>
-            <p>University scheduling is a combinatorially hard problem. With dozens of courses, rooms, instructors, and hard constraints, the search space grows exponentially. Standard solvers fail at realistic scale.</p>
-          </div>
-          <div>
-            <div class="project-section-title">Approach & Outcome</div>
-            <p>Combined Constraint Satisfaction Programming for hard-constraint pruning with Genetic Algorithms for soft-constraint optimization. The hybrid approach first eliminates infeasible regions of the search space, then evolves solutions toward minimum conflict. The resulting system generated valid, conflict-free timetables for full academic departments — handling room capacity, lecturer availability, and time window constraints simultaneously.</p>
-            <div class="tech-stack">
-              <span class="tech-pill">Python</span>
-              <span class="tech-pill">Genetic Algorithms</span>
-              <span class="tech-pill">CSP</span>
-              <span class="tech-pill">Heuristic Search</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-item reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div>
-          <div class="project-meta">
-            <span class="project-tag blue">Time Series</span>
-          </div>
-          <div class="project-name">Stock Trend Forecasting</div>
-          <div class="project-short">Statistical modeling of financial time series with ARIMA</div>
-        </div>
-        <svg class="project-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-      <div class="project-body">
-        <div class="project-body-inner">
-          <div>
-            <div class="project-section-title">The Problem</div>
-            <p>Financial time series are non-stationary, autocorrelated, and prone to structural breaks. The challenge is not just prediction accuracy but ensuring the model is correctly specified — fitting a model that the data actually supports.</p>
-          </div>
-          <div>
-            <div class="project-section-title">Approach & Outcome</div>
-            <p>Applied ARIMA modeling in R with careful stationarity testing (ADF, KPSS), ACF/PACF analysis for order identification, and diagnostic checking of residuals. Focused on the discipline of statistical modeling: the process of arriving at a well-fitted model rather than grid-searching for the lowest error. Results included interpretable trend components and quantified forecast uncertainty.</p>
-            <div class="tech-stack">
-              <span class="tech-pill">R</span>
-              <span class="tech-pill">ARIMA</span>
-              <span class="tech-pill">Statistical Modeling</span>
-              <span class="tech-pill">Forecasting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-item reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div>
-          <div class="project-meta">
-            <span class="project-tag">Systems</span>
-            <span class="project-tag blue">Security</span>
-          </div>
-          <div class="project-name">Distributed Mobile Storage System</div>
-          <div class="project-short">Decentralized data architecture using idle device storage</div>
-        </div>
-        <svg class="project-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-      <div class="project-body">
-        <div class="project-body-inner">
-          <div>
-            <div class="project-section-title">The Problem</div>
-            <p>Cloud storage introduces centralized points of failure, privacy concerns, and provider dependency. Billions of mobile devices collectively hold terabytes of unused storage. Can this idle capacity be turned into a resilient, private, distributed storage layer?</p>
-          </div>
-          <div>
-            <div class="project-section-title">Approach & Outcome</div>
-            <p>Designed a decentralized architecture that fragments and encrypts data across participating mobile devices, with automatic recovery mechanisms if nodes go offline. The system eliminates single-provider dependency and ensures data is never readable in transit or at rest on any single node. Built as a research prototype exploring the intersection of distributed systems and mobile computing.</p>
-            <div class="tech-stack">
-              <span class="tech-pill">Distributed Systems</span>
-              <span class="tech-pill">Encryption</span>
-              <span class="tech-pill">Mobile (Android)</span>
-              <span class="tech-pill">P2P Architecture</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="project-item reveal" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div>
-          <div class="project-meta">
-            <span class="project-tag green">ML</span>
-            <span class="project-tag">Data Mining</span>
-          </div>
-          <div class="project-name">YouTube Trends Analysis</div>
-          <div class="project-short">Extracting engagement patterns from large-scale platform data</div>
-        </div>
-        <svg class="project-toggle" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-      </div>
-      <div class="project-body">
-        <div class="project-body-inner">
-          <div>
-            <div class="project-section-title">The Problem</div>
-            <p>What actually drives video engagement at scale? Views, likes, comment velocity, and title characteristics all interact non-linearly. The goal was to move beyond correlation — to identify consistent, learnable patterns across categories and time.</p>
-          </div>
-          <div>
-            <div class="project-section-title">Approach & Outcome</div>
-            <p>Processed and cleaned a large-scale YouTube trending dataset, performed feature engineering on metadata (title length, publish time, category), and applied clustering and classification models to segment engagement patterns. Found statistically significant differences in engagement dynamics across content categories — insights that held across multiple geographic markets in the dataset.</p>
-            <div class="tech-stack">
-              <span class="tech-pill">Python</span>
-              <span class="tech-pill">Scikit-learn</span>
-              <span class="tech-pill">Pandas</span>
-              <span class="tech-pill">Data Mining</span>
-            </div>
-          </div>
-        </div>
+    <!-- Research Interests Panel -->
+    <div class="card">
+      <div class="card-body">
+        <h2 class="section-title-dark">Focus Areas</h2>
+        <ul style="list-style: none; font-size: 0.88rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
+          <li>• <strong>Computer Vision:</strong> Image & signal classification</li>
+          <li>• <strong>NLP:</strong> Dialect-aware & low-resource models</li>
+          <li>• <strong>Optimization:</strong> Metaheuristics & RL</li>
+        </ul>
       </div>
     </div>
 
   </div>
-</section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-label">04 — Experience</div>
-  <h2 class="section-title">Where I've worked</h2>
-  <div class="experience-list">
+</div>
 
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <div class="exp-period">2024 — 4 months</div>
-        <div class="exp-org">RAQIB</div>
-      </div>
-      <div>
-        <div class="exp-title">AI & Computer Vision Intern</div>
-        <p class="exp-body">
-          Worked within a team building deep learning systems for image-based analysis tasks. Focused on <strong>model design, training, and iterative performance improvement</strong> — learning how production CV systems differ from academic benchmarks. Navigated the practical realities of training on constrained datasets and deploying models outside clean lab conditions.
-        </p>
-        <div class="exp-highlights">
-          <span class="tech-pill">Computer Vision</span>
-          <span class="tech-pill">Deep Learning</span>
-          <span class="tech-pill">PyTorch</span>
-          <span class="tech-pill">Model Optimization</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <div class="exp-period">2024 — 1 month</div>
-        <div class="exp-org">Algérie Télécom</div>
-      </div>
-      <div>
-        <div class="exp-title">Data Analysis Intern</div>
-        <p class="exp-body">
-          Built a multi-model <strong>time series forecasting system</strong> combining Prophet, SARIMAX, XGBoost, and LSTM to model and predict network metrics. Each model brought different inductive biases — reconciling their outputs required understanding what each was actually learning. Delivered interactive dashboards in Streamlit for non-technical stakeholders.
-        </p>
-        <div class="exp-highlights">
-          <span class="tech-pill">Forecasting</span>
-          <span class="tech-pill">Prophet</span>
-          <span class="tech-pill">SARIMAX</span>
-          <span class="tech-pill">XGBoost</span>
-          <span class="tech-pill">LSTM</span>
-          <span class="tech-pill">Streamlit</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-meta">
-        <div class="exp-period">2024</div>
-        <div class="exp-org">Ministry of Health</div>
-      </div>
-      <div>
-        <div class="exp-title">NLP Research Project — Conversational Agent</div>
-        <p class="exp-body">
-          Designed and built a conversational agent in <strong>Algerian dialect</strong> — a low-resource language with no standard orthography and significant morphological variability. The agent was deployed in a health context aimed at behavioral influence, requiring careful attention to tone, coherence, and cultural appropriateness. This project sharpened my understanding of the gap between NLP benchmarks and real-world language diversity.
-        </p>
-        <div class="exp-highlights">
-          <span class="tech-pill">NLP</span>
-          <span class="tech-pill">Algerian Dialect</span>
-          <span class="tech-pill">Chatbot</span>
-          <span class="tech-pill">Low-Resource LLM</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-label">05 — Capabilities</div>
-  <h2 class="section-title">Technical skills</h2>
-  <div class="skills-grid reveal">
-    <div class="skill-group">
-      <div class="skill-group-title">Machine Learning & AI</div>
-      <ul class="skill-list">
-        <li>Supervised & Unsupervised Learning</li>
-        <li>Deep Learning (CNN, RNN, Transformers)</li>
-        <li>Reinforcement Learning</li>
-        <li>Natural Language Processing</li>
-        <li>Computer Vision</li>
-        <li>Time Series Analysis</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Frameworks & Tools</div>
-      <ul class="skill-list">
-        <li>Python (primary)</li>
-        <li>PyTorch / TensorFlow</li>
-        <li>Scikit-learn, Pandas, NumPy</li>
-        <li>R (statistical modeling)</li>
-        <li>Streamlit (data apps)</li>
-        <li>Git / Linux</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Optimization & Theory</div>
-      <ul class="skill-list">
-        <li>Genetic Algorithms</li>
-        <li>Particle Swarm Optimization</li>
-        <li>Linear Programming</li>
-        <li>Constraint Satisfaction</li>
-        <li>Probability & Statistics</li>
-        <li>Algorithm Design</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Software Development</div>
-      <ul class="skill-list">
-        <li>Flutter (mobile)</li>
-        <li>React / Web Technologies</li>
-        <li>Flask (API backend)</li>
-        <li>REST APIs</li>
-        <li>SQL / NoSQL</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Research Skills</div>
-      <ul class="skill-list">
-        <li>Literature review & synthesis</li>
-        <li>Experimental design</li>
-        <li>Model evaluation & analysis</li>
-        <li>Technical writing</li>
-        <li>Data-driven problem framing</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Languages</div>
-      <ul class="skill-list">
-        <li>Arabic (native)</li>
-        <li>French (professional)</li>
-        <li>English (technical & professional)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ACHIEVEMENTS -->
-<section id="achievements">
-  <div class="section-label">06 — Recognition</div>
-  <h2 class="section-title">Competitions & awards</h2>
-  <div class="achievements-grid">
-    <div class="achievement-card reveal">
-      <div class="achievement-rank">Selected For INCUBATION</div>
-      <div class="achievement-title">Forsa-Tic Hackathon</div>
-      <div class="achievement-org">Algérie Télécom</div>
-      <p class="achievement-desc">
-        Built an AI solution combining NLP and security techniques under competitive conditions. The project stood out for its technical depth and practical viability — it was selected for incubation by Algérie Télécom and is currently being developed further.
-      </p>
-      <div class="achievement-status">In incubation</div>
-    </div>
-    <div class="achievement-card reveal">
-      <div class="achievement-rank silver">3rd</div>
-      <div class="achievement-title">National Hackathon</div>
-      <div class="achievement-org">Ministry of Knowledge Economy</div>
-      <p class="achievement-desc">
-        Developed an AI + NLP system for automated application filtering with a human-in-the-loop design — a deliberate architectural choice that keeps a human reviewer in the decision chain for cases below confidence thresholds, balancing automation with accountability.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">07 — Contact</div>
-  <div class="contact-grid">
-    <div class="contact-text">
-      <h3>Let's talk<br><em>research.</em></h3>
-      <p>
-        If you're working on something interesting in machine learning, computer vision, NLP, or intelligent systems — and you're looking for a rigorous, self-directed final-year student — I'd like to hear from you.
-      </p>
-      <a href="mailto:hadjer.bordjiba@ensia.edu.dz" class="btn btn-primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Send an email
-      </a>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:hadjer.bordjiba@ensia.edu.dz" class="contact-link">
-        <div class="cl-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        </div>
-        <div>
-          <div class="cl-label">Email</div>
-          <div class="cl-text">hadjer.bordjiba@ensia.edu.dz</div>
-        </div>
-      </a>
-      <a href="https://www.linkedin.com/in/hadjer-bordjiba-9951a8335/" target="_blank" rel="noopener" class="contact-link">
-        <div class="cl-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </div>
-        <div>
-          <div class="cl-label">LinkedIn</div>
-          <div class="cl-text">Hadjer Bordjiba</div>
-        </div>
-      </a>
-      <a href="https://github.com/hadjerBor" target="_blank" rel="noopener" class="contact-link">
-        <div class="cl-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        </div>
-        <div>
-          <div class="cl-label">GitHub</div>
-          <div class="cl-text">hadjerBor</div>
-        </div>
-      </a>
-      <div class="contact-link" style="cursor:default;">
-        <div class="cl-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div>
-          <div class="cl-label">Location</div>
-          <div class="cl-text">Annaba, Algeria</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span>Hadjer Bordjiba — ENSIA</span>
-  <span>AI & Machine Learning Engineering</span>
-</footer>
-
-<div class="cursor-glow" id="cursorGlow"></div>
-
-<script>
-  function toggleProject(el) {
-    const wasOpen = el.classList.contains('open');
-    document.querySelectorAll('.project-item').forEach(p => p.classList.remove('open'));
-    if (!wasOpen) el.classList.add('open');
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  document.querySelector('.project-item').classList.add('open');
-
-  const toggle = document.getElementById('themeToggle');
-  const iconMoon = document.getElementById('iconMoon');
-  const iconSun = document.getElementById('iconSun');
-  const root = document.documentElement;
-
-  toggle.addEventListener('click', () => {
-    const isLight = root.getAttribute('data-theme') === 'light';
-    if (isLight) {
-      root.removeAttribute('data-theme');
-      iconMoon.style.display = '';
-      iconSun.style.display = 'none';
-    } else {
-      root.setAttribute('data-theme', 'light');
-      iconMoon.style.display = 'none';
-      iconSun.style.display = '';
-    }
-  });
-
-  const glow = document.getElementById('cursorGlow');
-  let glowVisible = false;
-  document.addEventListener('mousemove', (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
-    if (!glowVisible) { glow.style.opacity = '1'; glowVisible = true; }
-  });
-  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; glowVisible = false; });
-</script>
 </body>
 </html>
