@@ -6,19 +6,32 @@
 <title>Hadjer Bordjiba — AI & ML Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --primary-blue: #1d4ed8;
-    --dark-blue: #1e3a8a;
-    --light-bg: #e2e8f0;
+    --blue-700: #1e3a8a;
+    --blue-600: #2451e0;
+    --blue-500: #3b6ef0;
+    --indigo-500: #6a4bea;
+    --purple-600: #7c3aed;
+    --purple-500: #9757f2;
+
+    --grad-panel: linear-gradient(150deg, var(--blue-600) 0%, var(--indigo-500) 55%, var(--purple-600) 100%);
+    --grad-panel-soft: linear-gradient(150deg, var(--blue-500) 0%, var(--purple-500) 100%);
+    --grad-text: linear-gradient(120deg, var(--blue-600), var(--purple-600));
+
+    --bg: #eef1fb;
     --card-bg: #ffffff;
-    --text-main: #0f172a;
-    --text-muted: #475569;
+    --text-main: #17152e;
+    --text-muted: #4c4870;
+    --text-soft: #6f6b93;
     --text-white: #ffffff;
-    --text-white-dim: #cbd5e1;
-    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --text-white-dim: #d9d4f7;
+
+    --shadow: 0 14px 30px -8px rgba(58,32,150,0.16), 0 6px 12px -6px rgba(58,32,150,0.10);
+    --shadow-soft: 0 8px 18px -6px rgba(58,32,150,0.10);
+
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Open Sans', sans-serif;
   }
@@ -29,45 +42,57 @@
     padding: 0;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: var(--font-body);
-    background-color: var(--light-bg);
+    background:
+      radial-gradient(ellipse 70% 50% at 10% 0%, rgba(36,81,224,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, rgba(124,58,237,0.10), transparent 60%),
+      var(--bg);
     color: var(--text-main);
     line-height: 1.6;
-    padding: 40px 20px;
+    padding: 36px 18px;
     min-height: 100vh;
   }
 
   /* Layout Container */
   .portfolio-grid {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1.2fr 1fr;
-    gap: 28px;
+    grid-template-columns: 1fr 1.05fr 1fr;
+    gap: 16px;
     align-items: start;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   /* Card Base Styles */
   .card {
     background: var(--card-bg);
-    border-radius: 4px;
-    box-shadow: var(--shadow);
+    border-radius: 6px;
+    box-shadow: var(--shadow-soft);
     overflow: hidden;
   }
 
-  .card-blue {
-    background: var(--primary-blue);
+  .card-gradient {
+    background: var(--grad-panel);
     color: var(--text-white);
+    box-shadow: var(--shadow);
   }
 
-  .card-body {
-    padding: 32px 28px;
+  .card-accent-top {
+    border-top: 3px solid transparent;
+    border-image: var(--grad-text) 1;
   }
+
+  .card-body { padding: 28px 26px; }
+  .card-body-tight { padding: 22px 24px; }
 
   /* Typography */
   h1, h2, h3, h4 {
@@ -77,62 +102,84 @@
   }
 
   .section-title-white {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: var(--text-white);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     padding-bottom: 8px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .section-title-dark {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    color: var(--primary-blue);
-    margin-bottom: 20px;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 18px;
     padding-bottom: 8px;
-    border-bottom: 2px solid var(--primary-blue);
+    border-bottom: 2px solid var(--blue-600);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .title-icon {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    -webkit-text-fill-color: initial;
   }
 
   /* Hero Center Column */
-  .hero-card {
-    display: flex;
-    flex-direction: column;
-  }
+  .hero-card { display: flex; flex-direction: column; }
 
   .hero-img-wrap {
     width: 100%;
     aspect-ratio: 4/5;
     background: #cbd5e1;
     overflow: hidden;
+    position: relative;
+  }
+
+  .hero-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(30,20,80,0.55) 0%, transparent 35%);
   }
 
   .hero-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   .hero-info-block {
-    background: var(--primary-blue);
+    background: var(--grad-panel);
     color: var(--text-white);
-    padding: 36px 24px;
+    padding: 30px 22px;
     text-align: center;
   }
 
   .hero-name {
-    font-size: 2.2rem;
+    font-size: 1.85rem;
     font-weight: 900;
     line-height: 1.1;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
   }
 
   .hero-title {
-    font-size: 1.1rem;
+    font-size: 1.02rem;
     font-style: italic;
     font-weight: 500;
     color: var(--text-white-dim);
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     text-transform: none;
   }
 
@@ -140,207 +187,355 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    font-size: 0.9rem;
+    font-size: 0.86rem;
   }
 
-  .hero-contacts a {
-    color: var(--text-white);
-    text-decoration: none;
-    transition: opacity 0.2s;
+  .hero-contacts a { color: var(--text-white); text-decoration: none; transition: opacity 0.2s; }
+  .hero-contacts a:hover { opacity: 0.8; }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--card-bg);
   }
 
-  .hero-contacts a:hover {
-    opacity: 0.8;
+  .hero-stat {
+    text-align: center;
+    padding: 16px 8px;
+    border-right: 1px solid #eef1fb;
+  }
+  .hero-stat:last-child { border-right: none; }
+
+  .hero-stat-num {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.15rem;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  /* List Items inside Blue Cards */
-  .blue-list-item {
-    margin-bottom: 20px;
+  .hero-stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-top: 2px;
   }
 
-  .blue-list-item:last-child {
-    margin-bottom: 0;
+  /* List Items inside gradient Cards */
+  .blue-list-item { margin-bottom: 18px; }
+  .blue-list-item:last-child { margin-bottom: 0; }
+  .blue-list-item p { font-size: 0.86rem; color: var(--text-white-dim); line-height: 1.55; }
+  .blue-list-item .item-period {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 2px;
+  }
+  .blue-list-item strong { color: var(--text-white); display: block; font-size: 0.94rem; margin-bottom: 2px; }
+
+  .skill-group { margin-bottom: 16px; }
+  .skill-group:last-child { margin-bottom: 0; }
+  .skill-group-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 8px;
+    font-weight: 600;
   }
 
-  .blue-list-item p {
-    font-size: 0.88rem;
-    color: var(--text-white-dim);
-    line-height: 1.5;
-  }
-
-  .blue-list-item strong {
-    color: var(--text-white);
-    display: block;
-    font-size: 0.95rem;
-  }
-
-  .skill-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 7px; }
   .pill {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.22);
     color: var(--text-white);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     padding: 4px 10px;
     border-radius: 3px;
     font-weight: 600;
   }
 
-  /* Projects Section */
+  /* Projects */
   .project-card {
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e4e8f6;
+    border-left: 3px solid var(--blue-600);
     border-radius: 4px;
-    padding: 16px;
-    margin-bottom: 16px;
-    background: #f8fafc;
+    padding: 15px 16px;
+    margin-bottom: 12px;
+    background: #f9faff;
   }
-
-  .project-card:last-child {
-    margin-bottom: 0;
-  }
+  .project-card:last-child { margin-bottom: 0; }
+  .project-card:nth-child(even) { border-left-color: var(--purple-600); }
 
   .project-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    color: var(--primary-blue);
-    margin-bottom: 6px;
+    color: var(--text-main);
+    margin-bottom: 5px;
     text-transform: none;
+    letter-spacing: normal;
   }
-
-  .project-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
+  .project-desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 9px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .project-tag {
-    background: #e0e7ff;
-    color: var(--primary-blue);
-    font-size: 0.7rem;
+    background: #e6eafc;
+    color: var(--blue-600);
+    font-size: 0.68rem;
     font-weight: 700;
     padding: 2px 8px;
     border-radius: 2px;
   }
 
-  /* Social Links */
-  .social-links {
+  /* Focus areas */
+  .focus-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .focus-list li {
+    font-size: 0.86rem;
+    color: var(--text-muted);
     display: flex;
-    flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
   }
+  .focus-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--grad-text);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .focus-list strong { color: var(--text-main); }
 
-  .social-link {
+  /* Achievements */
+  .achieve-item { margin-bottom: 16px; }
+  .achieve-item:last-child { margin-bottom: 0; }
+  .achieve-rank {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--text-white);
-    text-decoration: none;
-    font-size: 0.88rem;
+    background: var(--grad-text);
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+  .achieve-title { font-size: 0.92rem; font-weight: 700; color: var(--text-main); margin-bottom: 3px; text-transform: none; letter-spacing: normal; }
+  .achieve-org { font-size: 0.72rem; color: var(--blue-600); font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .achieve-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* Contact — richer, multi-method */
+  .contact-method {
     display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .contact-method:last-child { border-bottom: none; }
+  .contact-method-icon {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.16);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-white);
+  }
+  .contact-method-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2px;
+  }
+  .contact-method-value { font-size: 0.88rem; color: var(--text-white); font-weight: 600; }
+  .contact-method-value a { color: var(--text-white); text-decoration: none; }
+  .contact-method-value a:hover { text-decoration: underline; }
+  .contact-method-sub { font-size: 0.76rem; color: var(--text-white-dim); margin-top: 2px; }
+
+  .availability-badge {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-top: 16px;
+  }
+  .availability-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 6px 1px rgba(74,222,128,0.6);
   }
 
-  .social-link:hover {
-    text-decoration: underline;
-  }
+  .social-links { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
 
-  /* Dynamic Stack Spacing for Columns */
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  /* Responsive Adjustments */
+  /* Responsive */
   @media (max-width: 992px) {
-    .portfolio-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-    .hero-column {
-      grid-column: span 2;
-      order: -1;
-    }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .hero-column { grid-column: span 2; order: -1; }
   }
 
   @media (max-width: 680px) {
-    body {
-      padding: 16px 10px;
-    }
-    .portfolio-grid {
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    .hero-column {
-      grid-column: span 1;
-    }
-    .hero-name {
-      font-size: 1.8rem;
-    }
+    body { padding: 14px 8px; }
+    .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
+    .hero-column { grid-column: span 1; }
+    .hero-name { font-size: 1.6rem; }
   }
 </style>
 </head>
 <body>
 
 <div class="portfolio-grid">
-  
+
   <!-- LEFT COLUMN -->
   <div class="column">
-    
-    <!-- Education & Experience (Blue Panel) -->
-    <div class="card card-blue">
+
+    <!-- Education & Skills -->
+    <div class="card card-gradient">
       <div class="card-body">
         <h2 class="section-title-white">Education</h2>
         <div class="blue-list-item">
+          <span class="item-period">2023 — Present</span>
           <strong>ENSIA — Engineering Cycle</strong>
-          <p>National Higher School of Artificial Intelligence (Master's Equivalent)</p>
+          <p>National Higher School of Artificial Intelligence, Algeria (Master's equivalent). Core focus: machine learning, computer vision, NLP, and intelligent optimization.</p>
         </div>
 
-        <h2 class="section-title-white" style="margin-top: 32px;">Experience</h2>
-        <div class="blue-list-item">
-          <strong>AI Research Intern</strong>
-          <p>Targeting PFE Research Placements in ML, CV, and NLP Systems.</p>
+        <h2 class="section-title-white" style="margin-top: 30px;">Skills</h2>
+        <div class="skill-group">
+          <div class="skill-group-label">Machine Learning & AI</div>
+          <div class="skill-pills">
+            <span class="pill">Deep Learning</span>
+            <span class="pill">Computer Vision</span>
+            <span class="pill">NLP</span>
+            <span class="pill">Reinforcement Learning</span>
+            <span class="pill">Time Series</span>
+          </div>
         </div>
-        <div class="blue-list-item">
-          <strong>Machine Learning Engineer</strong>
-          <p>Developed sequential models, RL agents, and signal classifiers.</p>
-        </div>
-
-        <h2 class="section-title-white" style="margin-top: 32px;">Skills</h2>
-        <div class="blue-list-item">
-          <p>Proficient in end-to-end model training, optimization, and problem formulation.</p>
+        <div class="skill-group">
+          <div class="skill-group-label">Tools & Frameworks</div>
           <div class="skill-pills">
             <span class="pill">Python</span>
             <span class="pill">PyTorch</span>
-            <span class="pill">Computer Vision</span>
-            <span class="pill">NLP</span>
-            <span class="pill">RL</span>
-            <span class="pill">Signal Processing</span>
+            <span class="pill">Scikit-learn</span>
+            <span class="pill">R</span>
+            <span class="pill">Streamlit</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Optimization & Theory</div>
+          <div class="skill-pills">
+            <span class="pill">Genetic Algorithms</span>
+            <span class="pill">CSP</span>
+            <span class="pill">Statistics</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Languages</div>
+          <div class="skill-pills">
+            <span class="pill">Arabic — Native</span>
+            <span class="pill">French — Professional</span>
+            <span class="pill">English — Professional</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Contact & Social Block -->
-    <div class="card card-blue">
+    <!-- Experience -->
+    <div class="card card-gradient">
       <div class="card-body">
-        <h2 class="section-title-white">Contact Me</h2>
-        <div class="hero-contacts" style="text-align: left; margin-bottom: 24px;">
-          <span>Annaba, Algeria</span>
-          <a href="mailto:hadjer.bordjiba@ensia.edu.dz">hadjer.bordjiba@ensia.edu.dz</a>
+        <h2 class="section-title-white">Experience</h2>
+
+        <div class="blue-list-item">
+          <span class="item-period">2024 · 4 months</span>
+          <strong>AI & Computer Vision Intern — RAQIB</strong>
+          <p>Built and trained deep learning models for image-based analysis, focusing on iterative performance improvement under real-world constraints.</p>
         </div>
 
-        <h2 class="section-title-white">Follow Me</h2>
-        <div class="social-links">
-          <a class="social-link" href="#" target="_blank">LinkedIn / Hadjer-Bordjiba</a>
-          <a class="social-link" href="#" target="_blank">GitHub / Hadjer-Bordjiba</a>
+        <div class="blue-list-item">
+          <span class="item-period">2024 · 1 month</span>
+          <strong>Data Analysis Intern — Algérie Télécom</strong>
+          <p>Built a multi-model forecasting system (Prophet, SARIMAX, XGBoost, LSTM) for network metrics, delivered via interactive Streamlit dashboards.</p>
+        </div>
+
+        <div class="blue-list-item">
+          <span class="item-period">2024</span>
+          <strong>NLP Research — Ministry of Health</strong>
+          <p>Designed a conversational agent in Algerian dialect for a behavioral-health deployment, addressing low-resource language challenges.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact — enriched, multiple methods -->
+    <div class="card card-gradient">
+      <div class="card-body">
+        <h2 class="section-title-white">Get In Touch</h2>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <div class="contact-method-label">Email — preferred</div>
+            <div class="contact-method-value"><a href="mailto:hadjer.bordjiba@ensia.edu.dz">hadjer.bordjiba@ensia.edu.dz</a></div>
+            <div class="contact-method-sub">Typical reply time: within 48 hours</div>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-method-label">Phone</div>
+            <div class="contact-method-value">Available on request</div>
+            <div class="contact-method-sub">Shared after initial email contact</div>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-method-label">Location</div>
+            <div class="contact-method-value">Annaba, Algeria</div>
+            <div class="contact-method-sub">Open to remote & on-site research roles</div>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <div class="contact-method-label">LinkedIn</div>
+            <div class="contact-method-value"><a href="https://www.linkedin.com/in/hadjer-bordjiba-9951a8335/" target="_blank" rel="noopener">Hadjer Bordjiba</a></div>
+          </div>
+        </div>
+
+        <div class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </div>
+          <div>
+            <div class="contact-method-label">GitHub</div>
+            <div class="contact-method-value"><a href="https://github.com/hadjerBor" target="_blank" rel="noopener">hadjerBor</a></div>
+          </div>
+        </div>
+
+        <div class="availability-badge">
+          <span class="availability-dot"></span>
+          Open to PFE research internships
         </div>
       </div>
     </div>
@@ -361,25 +556,55 @@
           <a href="mailto:hadjer.bordjiba@ensia.edu.dz">hadjer.bordjiba@ensia.edu.dz</a>
         </div>
       </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">6+</div>
+          <div class="hero-stat-label">Projects</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Internships</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">2</div>
+          <div class="hero-stat-label">Hackathon Awards</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- RIGHT COLUMN -->
   <div class="column">
-    
-    <!-- About Me Panel -->
-    <div class="card card-blue">
+
+    <!-- About Me -->
+    <div class="card card-gradient">
       <div class="card-body">
         <h2 class="section-title-white">About Me</h2>
-        <p style="font-size: 0.92rem; color: var(--text-white-dim); line-height: 1.7;">
-          Engineering student at the National Higher School of Artificial Intelligence (ENSIA). I build research-driven AI systems across machine learning, computer vision, and NLP. Currently seeking a PFE research internship where rigorous thinking meets real-world impact.
+        <p style="font-size: 0.9rem; color: var(--text-white-dim); line-height: 1.7; margin-bottom: 14px;">
+          Engineering student at the National Higher School of Artificial Intelligence (ENSIA). I build research-driven AI systems across machine learning, computer vision, and NLP — always trying to understand why a model works, not just that it does.
+        </p>
+        <p style="font-size: 0.9rem; color: var(--text-white-dim); line-height: 1.7;">
+          Currently seeking a <strong style="color: var(--text-white);">PFE research internship</strong> in an environment where ideas are challenged, methods are rigorous, and the work leaves a measurable trace.
         </p>
       </div>
     </div>
 
-    <!-- Selected Projects Panel -->
-    <div class="card">
-      <div class="card-body">
+    <!-- Focus Areas -->
+    <div class="card card-accent-top">
+      <div class="card-body-tight">
+        <h2 class="section-title-dark">Focus Areas</h2>
+        <ul class="focus-list">
+          <li><span class="focus-dot"></span><span><strong>Computer Vision</strong> — image & signal classification, medical and real-world visual data</span></li>
+          <li><span class="focus-dot"></span><span><strong>NLP</strong> — dialect-aware and low-resource conversational systems</span></li>
+          <li><span class="focus-dot"></span><span><strong>Sequential Learning</strong> — time series, EEG signal analysis, temporal patterns</span></li>
+          <li><span class="focus-dot"></span><span><strong>Optimization</strong> — metaheuristics, reinforcement learning, combinatorial search</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="card card-accent-top">
+      <div class="card-body-tight">
         <h2 class="section-title-dark">Projects</h2>
 
         <div class="project-card">
@@ -399,18 +624,45 @@
             <span class="project-tag">Python</span>
           </div>
         </div>
+
+        <div class="project-card">
+          <h3 class="project-title">AI Timetabling System</h3>
+          <p class="project-desc">Hybrid CSP + Genetic Algorithm solver generating conflict-free academic schedules at department scale.</p>
+          <div class="project-tags">
+            <span class="project-tag">CSP</span>
+            <span class="project-tag">Genetic Algorithms</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3 class="project-title">YouTube Trends Analysis</h3>
+          <p class="project-desc">Clustering and classification of large-scale engagement data across content categories.</p>
+          <div class="project-tags">
+            <span class="project-tag">Scikit-learn</span>
+            <span class="project-tag">Data Mining</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Research Interests Panel -->
-    <div class="card">
-      <div class="card-body">
-        <h2 class="section-title-dark">Focus Areas</h2>
-        <ul style="list-style: none; font-size: 0.88rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
-          <li>• <strong>Computer Vision:</strong> Image & signal classification</li>
-          <li>• <strong>NLP:</strong> Dialect-aware & low-resource models</li>
-          <li>• <strong>Optimization:</strong> Metaheuristics & RL</li>
-        </ul>
+    <!-- Achievements -->
+    <div class="card card-accent-top">
+      <div class="card-body-tight">
+        <h2 class="section-title-dark">Awards</h2>
+
+        <div class="achieve-item">
+          <span class="achieve-rank">Selected for incubation</span>
+          <div class="achieve-title">Forsa-Tic Hackathon</div>
+          <div class="achieve-org">Algérie Télécom</div>
+          <p class="achieve-desc">AI solution combining NLP and security techniques, selected for further incubation.</p>
+        </div>
+
+        <div class="achieve-item">
+          <span class="achieve-rank">3rd Place</span>
+          <div class="achieve-title">National Hackathon</div>
+          <div class="achieve-org">Ministry of Knowledge Economy</div>
+          <p class="achieve-desc">AI + NLP system for automated application filtering with human-in-the-loop review.</p>
+        </div>
       </div>
     </div>
 
