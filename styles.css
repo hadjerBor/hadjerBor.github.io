@@ -1,0 +1,147 @@
+/* BORDJIBA Hadjer — personal site
+   Kept plain on purpose: the sidebar carries the color, the pages carry the text. */
+
+:root {
+  --blue-600: #2451e0;
+  --indigo-500: #6a4bea;
+  --purple-600: #7c3aed;
+  --grad-panel: linear-gradient(160deg, var(--blue-600) 0%, var(--indigo-500) 55%, var(--purple-600) 100%);
+
+  --bg: #f7f8fc;
+  --ink: #17152e;
+  --muted: #47435f;
+  --soft: #75718f;
+  --line: #dfe2f0;
+
+  --sidebar: 280px;
+  --font-ui: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-text: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+}
+
+* , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-text);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+a { color: var(--blue-600); }
+a:hover { color: var(--purple-600); }
+:focus-visible { outline: 2px solid var(--indigo-500); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: 12px; top: -60px;
+  background: #fff; color: var(--blue-600);
+  padding: 8px 12px; border-radius: 4px;
+  font: 700 0.9rem var(--font-ui);
+  z-index: 20;
+}
+.skip:focus { top: 12px; }
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--sidebar);
+  background: var(--grad-panel);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 22px;
+  overflow-y: auto;
+}
+.sidebar :focus-visible { outline-color: #fff; }
+
+.portrait {
+  position: relative;
+  width: 190px; height: 190px;
+  margin-bottom: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.portrait span {
+  font: 800 2.3rem var(--font-ui);
+  color: var(--blue-600);
+}
+.portrait img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.site-name { font: 800 1.45rem/1.2 var(--font-ui); text-align: center; }
+.site-role { margin-top: 4px; font: 500 0.92rem var(--font-ui); color: rgba(255,255,255,0.85); text-align: center; }
+
+.nav {
+  margin-top: 30px;
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  display: flex;
+  flex-direction: column;
+}
+.nav a {
+  padding: 9px 6px;
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+  font: 600 0.98rem var(--font-ui);
+  text-align: center;
+  border-radius: 4px;
+}
+.nav a:hover { color: #fff; }
+.nav a[aria-current="page"] { color: #fff; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- Main ---------- */
+.main { margin-left: var(--sidebar); padding: 56px clamp(24px, 5vw, 64px); }
+.content { max-width: 680px; margin: 0 auto; }
+
+.page-title { font: 800 1.7rem var(--font-ui); margin-bottom: 22px; }
+
+.section-heading {
+  font: 700 1.05rem var(--font-ui);
+  margin: 34px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.section-heading:first-of-type { margin-top: 0; }
+
+p { font-size: 1.05rem; color: var(--muted); margin-bottom: 14px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--ink); font-weight: 600; }
+
+/* Simple dash list — research interests, languages, tools */
+.plain-list { list-style: none; }
+.plain-list li { position: relative; padding-left: 1.1em; margin-bottom: 6px; font-size: 1.02rem; color: var(--muted); }
+.plain-list li::before { content: "\2013"; position: absolute; left: 0; color: var(--soft); }
+.plain-list strong { display: inline; }
+
+/* Records — experience, projects, awards */
+.record { padding: 18px 0; }
+.record + .record { border-top: 1px solid var(--line); }
+.record:first-child { padding-top: 0; }
+.record h3 { font: 700 1.05rem var(--font-ui); color: var(--ink); margin-bottom: 2px; }
+.record .meta { font: 600 0.85rem var(--font-ui); color: var(--soft); margin-bottom: 8px; }
+.record p { margin-bottom: 0; }
+.record .tools { font-size: 0.88rem; color: var(--soft); margin-top: 8px; }
+
+.footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font: 500 0.82rem var(--font-ui); color: var(--soft); }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 860px) {
+  .sidebar { position: static; width: auto; padding: 28px 20px 16px; }
+  .portrait { width: 140px; height: 140px; }
+  .nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 4px 14px; border-top: none; margin-top: 18px; padding-top: 0; }
+  .main { margin-left: 0; padding: 36px 20px; }
+}
+
+@media print {
+  .sidebar { position: static; width: auto; background: none; color: #000; }
+  .main { margin-left: 0; }
+}
