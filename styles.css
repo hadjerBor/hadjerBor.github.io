@@ -114,7 +114,7 @@ a:hover { color: var(--purple-600); }
 
 p { font-size: 1.05rem; color: var(--muted); margin-bottom: 14px; }
 p:last-child { margin-bottom: 0; }
-strong { color: var(--ink); font-weight: 600; }
+strong { color: var(--blue-600); font-weight: 700; }
 
 /* Simple dash list — research interests, languages, tools */
 .plain-list { list-style: none; }
@@ -127,9 +127,19 @@ strong { color: var(--ink); font-weight: 600; }
 .record + .record { border-top: 1px solid var(--line); }
 .record:first-child { padding-top: 0; }
 .record h3 { font: 700 1.05rem var(--font-ui); color: var(--ink); margin-bottom: 2px; }
-.record .meta { font: 600 0.85rem var(--font-ui); color: var(--soft); margin-bottom: 8px; }
+.record h3::before { content: "\2013\00a0"; color: var(--soft); font-weight: 400; }
+.record .meta { font: 600 0.85rem var(--font-ui); color: var(--soft); margin-bottom: 10px; }
 .record p { margin-bottom: 0; }
+.record .plain-list { margin-bottom: 8px; }
+.record .plain-list:last-child { margin-bottom: 0; }
 .record .tools { font-size: 0.88rem; color: var(--soft); margin-top: 8px; }
+
+.section-heading-lg {
+  font: 800 1.55rem var(--font-ui);
+  margin: 46px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
 
 .footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font: 500 0.82rem var(--font-ui); color: var(--soft); }
 
